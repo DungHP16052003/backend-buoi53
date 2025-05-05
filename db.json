@@ -1,9 +1,9 @@
 {
   "posts": [
     {
-      "title": "Tiêu đề bài viết 2",
-      "description": "Mô tả bài viết 2",
-      "content": "Nội dung bài viết 2",
+      "title": "hello",
+      "description": "htlll",
+      "content": "heloo a",
       "id": 2
     },
     {
@@ -11,12 +11,73 @@
       "description": "Mô tả bài viết",
       "content": "Nội dung bài viết",
       "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "title": "hello",
+      "description": "htlll",
+      "content": "heloo ae",
+      "id": 6
     }
   ],
   "comments": [
     {
       "id": 1,
       "name": "Binh luan 1"
+    }
+  ],
+  "products": [
+    {
+      "name": "Quần dài kaki ECC Pants",
+      "image": "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/December2024/quan-dai-kaki-ecc-pants-den_(1).jpg",
+      "price": "539.000đ",
+      "category": "daily",
+      "id": 1
+    },
+    {
+      "name": "Quần dài kaki ECC Pants",
+      "image": "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/December2024/quan-dai-kaki-ecc-pants-den_(1).jpg",
+      "price": "536.000đ",
+      "category": "daily",
+      "id": 2
+    },
+    {
+      "name": "Quần dài kaki ECC Pants",
+      "image": "https://media3.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/December2024/quan-dai-kaki-ecc-pants-den_(1).jpg",
+      "price": "539.000đ",
+      "category": "daily",
+      "id": 3
+    }
+  ],
+  "category": [
+    {
+      "name": "áo cộc",
+      "image": "ảnh áo cộc",
+      "description": "áo mặc thoáng mát",
+      "id": 1
+    },
+    {
+      "name": "áo cộc",
+      "image": "ảnh áo cộc",
+      "description": "áo mặc thoáng mát",
+      "id": 2
+    },
+    {
+      "name": "áo cộc",
+      "image": "ảnh áo cộc",
+      "description": "áo mặc thoáng mát",
+      "id": 3
+    },
+    {
+      "name": "áo cộc",
+      "image": "ảnh áo cộc",
+      "description": "áo mặc thoáng mát",
+      "id": 4
     }
   ]
 }
