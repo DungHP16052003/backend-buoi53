@@ -1,5 +1,5 @@
 const express = require("express");
-const productsController = require("../controllers/products.controller");
+const productsController = require("@/controllers/products.controller");
 const {
   createProductsValidator,
   updateProductsValidator,
@@ -9,15 +9,15 @@ const router = express.Router();
 // 2. Thay thế "posts" tại các method bằng readDb(RESOURCE)
 // 3. Tại methods thêm/sửa/xóa dùng writeDb(RESOURCE)
 
-router.get("/", productsController.index);
+router.get("/", productsController.getList);
 
-router.get("/:id", productsController.show);
+router.get("/:product", productsController.getOne);
 
-router.post("/", createProductsValidator, productsController.store);
+router.post("/", createProductsValidator, productsController.create);
 
-router.put("/:id", updateProductsValidator, productsController.update);
-router.patch("/:id", updateProductsValidator, productsController.update);
+router.put("/:product", updateProductsValidator, productsController.update);
+router.patch("/:product", updateProductsValidator, productsController.update);
 
-router.delete("/:id", productsController.destroy);
+router.delete("/:product", productsController.remove);
 
 module.exports = router;

@@ -1,28 +1,8 @@
 {
   "posts": [
     {
-      "title": "hello",
-      "description": "htlll",
-      "content": "heloo a",
+      "title": "ô",
       "id": 2
-    },
-    {
-      "title": "Tiêu đề bài viết",
-      "description": "Mô tả bài viết",
-      "content": "Nội dung bài viết",
-      "id": 3
-    },
-    {
-      "id": 4
-    },
-    {
-      "id": 5
-    },
-    {
-      "title": "hello",
-      "description": "htlll",
-      "content": "heloo ae",
-      "id": 6
     }
   ],
   "comments": [
