@@ -5,16 +5,16 @@ const { createTodosValidator } = require("../validators/todos.validator");
 const { updateProductsValidator } = require("../validators/products.validator");
 const router = express.Router();
 
-router.get("/", todosController.index);
+router.get("/", todosController.getList);
 
-router.get("/:id", todosController.show);
+router.get("/:id", todosController.getOne);
 
-router.post("/", createTodosValidator, todosController.store);
+router.post("/", createTodosValidator, todosController.create);
 
 router.put("/:id", updateProductsValidator, todosController.update);
 
 router.patch("/:id", updateProductsValidator, todosController.update);
 
-router.delete("/:id", todosController.destroy);
+router.delete("/:id", todosController.remove);
 
 module.exports = router;

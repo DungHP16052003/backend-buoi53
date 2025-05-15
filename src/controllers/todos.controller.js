@@ -29,7 +29,7 @@ const readDb = async (resource) => {
 };
 
 const router = express.Router();
-const index = async (req, res) => {
+const getList = async (req, res) => {
   const todos = await readDb(RESOURCE);
   console.log(todos);
 
@@ -39,7 +39,7 @@ const index = async (req, res) => {
   });
 };
 
-const show = async (req, res) => {
+const getOne = async (req, res) => {
   const todos = await readDb(RESOURCE);
   const todo = todos.find((todo) => todo.id === +req.params.id);
 
@@ -57,7 +57,7 @@ const show = async (req, res) => {
   });
 };
 
-const store = async (req, res) => {
+const create = async (req, res) => {
   const todos = await readDb(RESOURCE);
   const nextId = (todos.at(-1)?.id ?? 0) + 1;
   const todo = {
@@ -97,7 +97,7 @@ const update = async (req, res) => {
   });
 };
 
-const destroy = async (req, res) => {
+const remove = async (req, res) => {
   const todos = await readDb(RESOURCE);
   const todoIndex = todos.findIndex(
     (todoIndex) => todoIndex.id === +req.params.id
@@ -119,9 +119,9 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
-  index,
-  show,
-  store,
+  getList,
+  getOne,
+  create,
   update,
-  destroy,
+  remove,
 };
