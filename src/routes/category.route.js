@@ -4,10 +4,13 @@ const {
   createCategoryValidator,
   updateCategoryValidator,
 } = require("../validators/category.validator");
+const addResourceLoaders = require("@/utils/addResourceLoaders");
 
 const router = express.Router();
 
-router.get("/", categoryController.getListCategory);
+addResourceLoaders(router, ["category"]);
+
+router.get("/", categoryController.getList);
 
 router.get("/:category", categoryController.getOne);
 

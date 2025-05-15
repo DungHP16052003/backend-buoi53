@@ -4,19 +4,21 @@ const {
   createPostValidator,
   updatePostValidator,
 } = require("@/validators/posts.validator");
+const addResourceLoaders = require("@/utils/addResourceLoaders");
 
 const router = express.Router();
+addResourceLoaders(router, ["post"]);
 
 router.get("/", postsController.getList);
 
-router.get("/:id", postsController.getOne);
+router.get("/:post", postsController.getOne);
 
 router.post("/", createPostValidator, postsController.create);
 
-router.put("/:id", updatePostValidator, postsController.update);
-router.patch("/:id", updatePostValidator, postsController.update);
+router.put("/:post", updatePostValidator, postsController.update);
+router.patch("/:post", updatePostValidator, postsController.update);
 
-router.delete("/:id", postsController.remove);
+router.delete("/:post", postsController.remove);
 
 // posts comments
 // router.get("/:id/comments", postsController.getPostComments);

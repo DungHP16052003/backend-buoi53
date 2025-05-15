@@ -2,9 +2,9 @@ const categoryService = require("@/services/category.service");
 const response = require("@/utils/response");
 const throwError = require("@/utils/throwError");
 
-exports.getListCategory = async (req, res) => {
-  const category = await categoryService.getAllCategory();
-  response.success(res, 200, category);
+exports.getList = async (req, res) => {
+  const categories = await categoryService.getAllCategory();
+  response.success(res, 200, categories);
 };
 
 exports.getOne = async (req, res) => {

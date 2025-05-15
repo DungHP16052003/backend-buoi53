@@ -6,7 +6,7 @@ class UsersService {
     return users;
   }
   async getOne(id) {
-    const user = await usersModel.getById(id);
+    const user = await usersModel.findById(id);
     return user;
   }
 

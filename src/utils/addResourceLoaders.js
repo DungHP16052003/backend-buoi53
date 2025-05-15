@@ -2,6 +2,7 @@ const throw404 = require("./throw404");
 
 const models = {
   user: require("@/models/user.model"),
+  post: require("@/models/posts.model"),
   category: require("@/models/category.model"),
   product: require("@/models/product.model"),
 };

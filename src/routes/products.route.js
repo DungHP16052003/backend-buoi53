@@ -4,10 +4,9 @@ const {
   createProductsValidator,
   updateProductsValidator,
 } = require("../validators/products.validator");
+const addResourceLoaders = require("@/utils/addResourceLoaders");
 const router = express.Router();
-// 1. Xóa bỏ mảng "posts" (Fake DB)
-// 2. Thay thế "posts" tại các method bằng readDb(RESOURCE)
-// 3. Tại methods thêm/sửa/xóa dùng writeDb(RESOURCE)
+addResourceLoaders[(router, ["product"])];
 
 router.get("/", productsController.getList);
 

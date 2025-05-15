@@ -2,10 +2,11 @@ const db = require("@/configs/db");
 const { buildInsertQuery, buildUpdateQuery } = require("@/utils/queryBuilder");
 
 exports.findAll = async () => {
-  const [category] = await db.query("select * from category");
-  return category;
+  const [categories] = await db.query("select * from category");
+  return categories;
 };
-exports.getById = async (id) => {
+
+exports.findById = async (id) => {
   const [category] = db.query(`select * from category where id = ?`, [id]);
   return category[0];
 };

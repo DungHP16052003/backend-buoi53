@@ -1,12 +1,14 @@
 const db = require("@/configs/db");
 const { buildInsertQuery, buildUpdateQuery } = require("@/utils/queryBuilder");
 
-exports.fillAll = async () => {
-  const [products] = db.query("select * from products");
+exports.findAll = async () => {
+  const [products] = await db.query("select * from products");
   return products;
 };
-exports.getById = async (id) => {
-  const [products] = db.query(`select * from products where id = ?`, [id]);
+exports.findById = async (id) => {
+  const [products] = await db.query(`select * from products where id = ?`, [
+    id,
+  ]);
   return products[0];
 };
 exports.create = async (data) => {
@@ -20,10 +22,10 @@ exports.create = async (data) => {
   };
 };
 
-exports.remove = async (id, data) => {
+exports.update = async (id, data) => {
   const { setClause, values } = buildUpdateQuery(data);
   values.push(id);
-  const query = `UPDATE products SET (${setClause} WHERE id = ?;)`;
+  const query = `UPDATE products SET ${setClause} WHERE id = ?`;
   await db.query(query, values);
 
   return {

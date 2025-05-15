@@ -6,7 +6,7 @@ class PostsService {
     return posts;
   }
   async getOne(id) {
-    const post = await postsModel.getById(id);
+    const post = await postsModel.findById(id);
     return post;
   }
 

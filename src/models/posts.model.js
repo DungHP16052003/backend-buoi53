@@ -5,7 +5,7 @@ exports.findAll = async () => {
   const [posts] = await db.query("select * from posts");
   return posts;
 };
-exports.getById = async (id) => {
+exports.findById = async (id) => {
   const [posts] = await db.query(`select * from posts where id = ?`, [id, id]);
   return posts[0];
 };
