@@ -12,6 +12,7 @@ const app = express();
 const router = require("@/routes");
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(express.static("public"));
 app.use(expressLayouts);
 

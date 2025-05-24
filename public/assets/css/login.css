@@ -15,3 +15,13 @@
 .remember-me input {
     margin-right: 8px;
 }
+.error-text {
+        color: #f44336;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .form-control.error {
+        border-color: #f44336;
+      }
