@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Admin Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/forgot_password.css" />
+    <link rel="stylesheet" href="/assets/css/resetPassword.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .error-text {
+        color: #f44336;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .form-control.error {
+        border-color: #f44336;
+      }
+    </style>
+  </head>
+  <body>
+    <tbody>
+      <%- body %>
+    </tbody>
+
+    <script src="assets/js/validation.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Common password validation function
+        function isValidPassword(password) {
+          const lengthValid = password.length >= 8;
+          const uppercaseValid = /[A-Z]/.test(password);
+          const lowercaseValid = /[a-z]/.test(password);
+          const numberValid = /[0-9]/.test(password);
+          const specialValid = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+          return (
+            lengthValid &&
+            uppercaseValid &&
+            lowercaseValid &&
+            numberValid &&
+            specialValid
+          );
+        }
+
+        // Common password requirements checker
+        function updatePasswordRequirements(password, requirementPrefix = "") {
+          const lengthReq = document.getElementById(
+            requirementPrefix + "lengthReq"
+          );
+          const uppercaseReq = document.getElementById(
+            requirementPrefix + "uppercaseReq"
+          );
+          const lowercaseReq = document.getElementById(
+            requirementPrefix + "lowercaseReq"
+          );
+          const numberReq = document.getElementById(
+            requirementPrefix + "numberReq"
+          );
+          const specialReq = document.getElementById(
+            requirementPrefix + "specialReq"
+          );
+
+          // Helper function to update requirement element
+          function updateRequirement(element, isValid) {
+            if (!element) return;
+
+            if (isValid) {
+              element.classList.add("valid");
+              const icon = element.querySelector("i");
+              if (icon) icon.className = "fas fa-check-circle";
+            } else {
+              element.classList.remove("valid");
+              const icon = element.querySelector("i");
+              if (icon) icon.className = "fas fa-circle";
+            }
+          }
+
+          // Update all requirements
+          updateRequirement(lengthReq, password.length >= 8);
+          updateRequirement(uppercaseReq, /[A-Z]/.test(password));
+          updateRequirement(lowercaseReq, /[a-z]/.test(password));
+          updateRequirement(numberReq, /[0-9]/.test(password));
+          updateRequirement(
+            specialReq,
+            /[!@#$%^&*(),.?":{}|<>]/.test(password)
+          );
+        }
+
+        // Common password match checker
+        function checkPasswordMatch(password1, password2, errorElementId) {
+          const errorElement = document.getElementById(errorElementId);
+          if (!errorElement) return;
+
+          if (password1 !== password2) {
+            errorElement.style.display = "block";
+          } else {
+            errorElement.style.display = "none";
+          }
+        }
+
+        // Common form initialization
+        function initializeForm(formId) {
+          if (typeof initFormValidation === "function") {
+            initFormValidation(formId);
+          }
+        }
+
+        // Reset password requirements visual state
+        function resetPasswordRequirements() {
+          document.querySelectorAll(".requirement").forEach(function (req) {
+            req.classList.remove("valid");
+            const icon = req.querySelector("i");
+            if (icon) icon.className = "fas fa-circle";
+          });
+        }
+
+        // LOGIN FORM HANDLER
+        const loginForm = document.getElementById("loginForm");
+        if (loginForm) {
+          initializeForm("loginForm");
+
+          loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (validateForm("loginForm")) {
+              // In a real app, you would send an AJAX request to your server
+              // For demo: redirect to dashboard
+              window.location.href = "index.html";
+            }
+          });
+        }
+
+        // REGISTER FORM HANDLER
+        const registerForm = document.getElementById("registerForm");
+        if (registerForm) {
+          initializeForm("registerForm");
+
+          const passwordInput = document.getElementById("password");
+          const confirmPasswordInput =
+            document.getElementById("confirmPassword");
+          const termsCheckbox = document.getElementById("terms");
+          const termsError = document.getElementById("termsError");
+
+          if (passwordInput) {
+            // Check password requirements in real-time
+            passwordInput.addEventListener("keyup", function () {
+              updatePasswordRequirements(this.value);
+            });
+          }
+
+          if (confirmPasswordInput && passwordInput) {
+            // Check password match when confirm password is changed
+            confirmPasswordInput.addEventListener("keyup", function () {
+              checkPasswordMatch(
+                passwordInput.value,
+                this.value,
+                "confirmPasswordError"
+              );
+            });
+          }
+
+          if (termsCheckbox && termsError) {
+            // Handle terms checkbox
+            termsCheckbox.addEventListener("change", function () {
+              termsError.style.display = this.checked ? "none" : "block";
+            });
+
+            // Initially hide terms error
+            termsError.style.display = "none";
+          }
+
+          // Handle form submission
+          registerForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Validate terms checkbox
+            if (termsCheckbox && !termsCheckbox.checked) {
+              if (termsError) termsError.style.display = "block";
+              return;
+            }
+
+            // Use the validation.js utility for validating the form
+            if (
+              validateForm("registerForm") &&
+              isValidPassword(passwordInput.value) &&
+              passwordInput.value === confirmPasswordInput.value
+            ) {
+              // In a real app, you would send an AJAX request to your server
+              // For demo: redirect to login page
+              window.location.href = "login.html";
+            }
+          });
+        }
+
+        // FORGOT PASSWORD FORM HANDLER
+        const forgotPasswordForm =
+          document.getElementById("forgotPasswordForm");
+        if (forgotPasswordForm) {
+          initializeForm("forgotPasswordForm");
+
+          forgotPasswordForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (validateForm("forgotPasswordForm")) {
+              // In a real app, you would send an AJAX request to your server
+              // For demo: simulate successful password reset email
+              const successMessage = document.getElementById("successMessage");
+              if (successMessage) {
+                successMessage.style.display = "block";
+              }
+
+              forgotPasswordForm.reset();
+
+              // Redirect to login page after 3 seconds
+              setTimeout(function () {
+                window.location.href = "login.html";
+              }, 3000);
+            }
+          });
+        }
+
+        // RESET PASSWORD FORM HANDLER
+        const resetPasswordForm = document.getElementById("resetPasswordForm");
+        if (resetPasswordForm) {
+          initializeForm("resetPasswordForm");
+
+          const newPasswordInput = document.getElementById("newPassword");
+          const confirmPasswordInput =
+            document.getElementById("confirmPassword");
+
+          if (newPasswordInput) {
+            // Check password requirements in real-time
+            newPasswordInput.addEventListener("keyup", function () {
+              const password = this.value;
+              updatePasswordRequirements(password);
+
+              // Check for password match if confirm password has value
+              if (confirmPasswordInput && confirmPasswordInput.value) {
+                checkPasswordMatch(
+                  password,
+                  confirmPasswordInput.value,
+                  "confirmPasswordError"
+                );
+              }
+            });
+          }
+
+          if (confirmPasswordInput && newPasswordInput) {
+            // Check password match when confirm password is changed
+            confirmPasswordInput.addEventListener("keyup", function () {
+              checkPasswordMatch(
+                newPasswordInput.value,
+                this.value,
+                "confirmPasswordError"
+              );
+            });
+          }
+
+          // Handle form submission
+          resetPasswordForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (
+              validateForm("resetPasswordForm") &&
+              isValidPassword(newPasswordInput.value) &&
+              newPasswordInput.value === confirmPasswordInput.value
+            ) {
+              // In a real app, you would send an AJAX request to your server
+              // For demo: simulate successful password reset
+              const successMessage = document.getElementById("successMessage");
+              if (successMessage) {
+                successMessage.style.display = "block";
+              }
+
+              resetPasswordForm.reset();
+              resetPasswordRequirements();
+
+              // Redirect to login page after 3 seconds
+              setTimeout(function () {
+                window.location.href = "login.html";
+              }, 3000);
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

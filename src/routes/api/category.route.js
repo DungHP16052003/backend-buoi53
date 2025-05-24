@@ -1,9 +1,9 @@
 const express = require("express");
-const categoryController = require("@/controllers/category.controller");
+const categoryController = require("@/controllers/api/category.controller");
 const {
   createCategoryValidator,
   updateCategoryValidator,
-} = require("../validators/category.validator");
+} = require("../../validators/category.validator");
 const addResourceLoaders = require("@/utils/addResourceLoaders");
 
 const router = express.Router();

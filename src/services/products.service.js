@@ -2,11 +2,11 @@ const productModel = require("@/models/product.model");
 
 class ProductsService {
   async getAll() {
-    const products = await productModel.fillAll();
+    const products = await productModel.findAll();
     return products;
   }
   async getOne(id) {
-    const product = await productModel.getById(id);
+    const product = await productModel.findById(id);
     return product;
   }
   async create(data) {

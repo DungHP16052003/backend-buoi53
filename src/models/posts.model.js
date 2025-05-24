@@ -42,25 +42,3 @@ exports.remove = async (id) => {
   ]);
   return affectedRows > 0;
 };
-exports.findAll = async ({ page = 1, limit = 10 } = {}) => {
-  const offset = (page - 1) * limit;
-
-  const [[{ total }]] = await db.query("SELECT COUNT(*) as total FROM posts");
-
-  const [items] = await db.query("SELECT * FROM posts LIMIT ? OFFSET ?", [
-    limit,
-    offset,
-  ]);
-
-  const last_page = Math.ceil(total / limit);
-
-  return {
-    items,
-    pagination: {
-      current_page: page,
-      per_page: limit,
-      total,
-      last_page,
-    },
-  };
-};
