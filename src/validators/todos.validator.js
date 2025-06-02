@@ -1,5 +1,5 @@
 const { checkSchema } = require("express-validator");
-const handlerErrors = require("./handlerErrors");
+const handlerErrors = require("./admin/handlerErrors");
 
 exports.createTodosValidator = [
   checkSchema({

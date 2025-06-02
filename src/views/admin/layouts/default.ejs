@@ -23,7 +23,6 @@
         color: #f44336;
         font-size: 12px;
         margin-top: 5px;
-        display: none;
       }
 
       .form-control.error {
@@ -36,7 +35,7 @@
     <%- include("../partials/sidebar") %>
 
     <!-- Main Content -->
-    <main><%- body %></main>
+    <main><%- include("../partials/flash-message") %> <%- body %></main>
 
     <!-- Delete Confirmation Modal -->
     <div class="modal" id="confirmDeleteModal">

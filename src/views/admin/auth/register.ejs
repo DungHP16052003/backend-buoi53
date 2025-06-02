@@ -3,13 +3,14 @@
     <h1>Admin Dashboard</h1>
   </div>
 
-  <form id="registerForm" novalidate>
+  <form method="POST" action="/admin/register">
     <div class="form-row">
       <div class="form-group">
         <label for="firstname">First Name</label>
         <input
           type="text"
           id="firstname"
+          name="firstname"
           class="form-control"
           placeholder="Enter first name"
           data-validate="name"
@@ -25,6 +26,7 @@
         <input
           type="text"
           id="lastname"
+          name="lastname"
           class="form-control"
           placeholder="Enter last name"
           data-validate="name"
@@ -41,9 +43,9 @@
       <input
         type="email"
         id="email"
+        name="email"
         class="form-control"
         placeholder="Enter your email"
-        required
       />
       <span class="error-text" id="emailError"
         >Please enter a valid email address.</span
@@ -55,10 +57,10 @@
       <input
         type="password"
         id="password"
+        name="password"
         class="form-control"
         placeholder="Choose a password"
         data-validate="password"
-        required
       />
       <span class="error-text" id="passwordError"
         >Password must meet the requirements below.</span
@@ -88,6 +90,7 @@
       <input
         type="password"
         id="confirmPassword"
+        name="confirmPassword"
         class="form-control"
         placeholder="Confirm password"
         required
@@ -96,11 +99,12 @@
         >Passwords do not match.</span
       >
     </div>
+    -->
 
     <div class="terms">
       <input type="checkbox" id="terms" required />
       <label for="terms"
-        >I agree to the Terms of Service and Privacy Policy</label
+        >I agree name="gree"to the Terms of Service and Privacy Policy</label
       >
       <span
         class="error-text"

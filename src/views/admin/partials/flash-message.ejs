@@ -1,0 +1,27 @@
+<div class="flash-messages">
+  <style>
+    .flash-message {
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background: #ccc;
+    }
+
+    .flash-message.success {
+      border-color: #5af3ae;
+      background: #3fda94;
+    }
+
+    .flash-message.error {
+      border-color: red;
+      background: #d1e7dd;
+    }
+
+    .flash-message.warning {
+    }
+  </style>
+  <% if (flash) { %>
+  <div class="flash-message <%= flash.type %>"><%= flash.message %></div>
+  <% } %>
+</div>

@@ -1,9 +1,19 @@
 <main class="content-wrapper">
   <div class="content-header">
-    <h1>Create New User</h1>
-    <a href="users.html" class="btn btn-secondary">
-      <i class="fas fa-arrow-left"></i> Back to Users
-    </a>
+    <h1>Edit User</h1>
+    <div>
+      <a href="/admin/users" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Users
+      </a>
+      <a
+        href="#"
+        class="btn btn-danger"
+        id="deleteUserBtn"
+        style="margin-left: 10px"
+      >
+        <i class="fas fa-trash"></i> Delete User
+      </a>
+    </div>
   </div>
 
   <!-- Success Message -->
@@ -13,11 +23,16 @@
     style="display: none"
   >
     <i class="fas fa-check-circle"></i>
-    <span data-message-text>User has been created successfully.</span>
+    <span data-message-text>User has been updated successfully.</span>
   </div>
 
-  <!-- Create User Form -->
-  <form id="createUserForm" class="card" method="POST" , action="/admin/users">
+  <!-- Edit User Form -->
+  <form
+    id="editUserForm"
+    class="card"
+    method="POST"
+    action="/admin/users/<%= user.id %>?_method=PUT"
+  >
     <div class="card-header">
       <h3>User Information</h3>
     </div>
@@ -30,8 +45,9 @@
             type="text"
             id="userName"
             name="name"
-            value="<%= old?.name %>"
+            value="<%= old?.name ?? user?.name %>"
             class="form-control"
+            required
             data-validate="name"
           />
           <% if(errors?.name) {%>
@@ -47,15 +63,12 @@
             <input
               type="email"
               id="userEmail"
+              value="<%=old?.email ?? user?.email %>"
               name="email"
-              value="<%= old?.email %>"
               class="form-control"
+              required
             />
-            <% if(errors?.email) {%>
-            <span class="error-text" id="userEmailError">
-              <%= errors.email%>
-            </span>
-            <% } %>
+            <span class="error-text" id="userEmailError"></span>
           </div>
 
           <div class="form-group">
@@ -63,6 +76,7 @@
             <input
               type="tel"
               id="userPhone"
+              value="<%= old?.phone ?? user?.phone %>"
               name="phone"
               class="form-control"
               data-validate="phone"
@@ -75,6 +89,7 @@
           <label for="userAddress">Address</label>
           <textarea
             id="userAddress"
+            value="<%= old?.address ?? user?.address %>"
             name="address"
             class="form-control"
             rows="2"
@@ -90,8 +105,10 @@
           <input
             type="text"
             id="userUsername"
+            value="<%= old?.username ?? user?.username %>"
             name="username"
             class="form-control"
+            required
             data-validate="username"
           />
           <span class="error-text" id="userUsernameError"></span>
@@ -100,7 +117,13 @@
         <div class="form-row">
           <div class="form-group">
             <label for="userRole">Role*</label>
-            <select id="userRole" name="role" class="form-control" required>
+            <select
+              id="userRole"
+              value="<%= old?.role ?? user?.role %>"
+              name="role"
+              class="form-control"
+              required
+            >
               <option value="">Select Role</option>
               <option value="admin">Administrator</option>
               <option value="editor">Editor</option>
@@ -111,22 +134,51 @@
 
           <div class="form-group">
             <label for="userStatus">Status*</label>
-            <select id="userStatus" name="status" class="form-control" required>
+            <select
+              id="userStatus"
+              value="<%= old?.status ?? user?.status %>"
+              name="status"
+              class="form-control"
+              required
+            >
               <option value="">Select Status</option>
-              <option value="active" selected>Active</option>
+              <option value="active">Active</option>
               <option value="inactive">Inactive</option>
               <option value="pending">Pending</option>
             </select>
             <span class="error-text" id="userStatusError"></span>
           </div>
         </div>
+
+        <div class="form-group">
+          <label for="dateCreated">Date Created</label>
+          <input
+            type="text"
+            id="dateCreated"
+            class="form-control"
+            readonly
+            disabled
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="lastLogin">Last Login</label>
+          <input
+            type="text"
+            id="lastLogin"
+            class="form-control"
+            readonly
+            disabled
+          />
+        </div>
       </div>
 
       <div class="form-section">
-        <h3>Password</h3>
+        <h3>Change Password</h3>
+        <p class="form-help-text">Leave blank to keep the current password</p>
         <div class="form-row">
           <div class="form-group">
-            <label for="userPassword">Password*</label>
+            <label for="userPassword">New Password</label>
             <input
               type="password"
               id="userPassword"
@@ -138,7 +190,7 @@
           </div>
 
           <div class="form-group">
-            <label for="userConfirmPassword">Confirm Password*</label>
+            <label for="userConfirmPassword">Confirm New Password</label>
             <input
               type="password"
               id="userConfirmPassword"
@@ -148,17 +200,14 @@
             <span class="error-text" id="userConfirmPasswordError"></span>
           </div>
         </div>
-        <p
-          class="form-help-text"
-          style="color: #666; font-size: 13px; margin-top: 5px"
-        >
+        <p class="form-help-text">
           Password must be at least 8 characters and include uppercase,
           lowercase, number, and special character.
         </p>
       </div>
 
       <!-- <div class="form-section">
-        <h3>Notification Settings</h3>
+        <h3>Email Notifications</h3>
         <div class="form-group">
           <div class="checkbox-group">
             <input
@@ -168,7 +217,7 @@
               checked
             />
             <label for="emailNotifications"
-              >Send welcome email to the user</label
+              >Send email notifications to this user</label
             >
           </div>
           <div class="checkbox-group">
@@ -176,10 +225,9 @@
               type="checkbox"
               id="adminNotifications"
               name="adminNotifications"
-              checked
             />
             <label for="adminNotifications"
-              >Notify administrators about this new user</label
+              >Notify administrators about changes to this user</label
             >
           </div>
         </div>
@@ -190,7 +238,7 @@
           Cancel
         </button>
         <button type="submit" class="btn btn-primary">
-          <i class="fas fa-save"></i> Create User
+          <i class="fas fa-save"></i> Save Changes
         </button>
       </div>
     </div>

@@ -3,12 +3,13 @@
     <h1>Admin Dashboard</h1>
   </div>
 
-  <form id="loginForm" novalidate>
+  <form id="loginForm" method="POST" action="/admin/login">
     <div class="form-group">
       <label for="email">Email</label>
       <input
         type="email"
         id="email"
+        name="email"
         class="form-control"
         placeholder="Enter your email"
         required
@@ -23,6 +24,7 @@
       <input
         type="password"
         id="password"
+        name="password"
         class="form-control"
         placeholder="Enter your password"
         required

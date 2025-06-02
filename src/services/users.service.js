@@ -9,6 +9,10 @@ class UsersService {
     const user = await usersModel.findById(id);
     return user;
   }
+  async getEmailAndPassword(email, password) {
+    const user = await usersModel.findByEmailAnhPassword(email, password);
+    return user;
+  }
 
   async create(data) {
     const user = await usersModel.create(data);
