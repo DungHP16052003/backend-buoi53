@@ -28,7 +28,6 @@ exports.create = async (req, res) => {
 
 exports.store = async (req, res) => {
   const { confirm_password, ...body } = req.body;
-  console.log(body);
 
   await usersService.create(body);
   res.setFlash({
@@ -54,6 +53,10 @@ exports.update = async (req, res) => {
     const { confirm_password, ...body } = req.body;
 
     await usersService.update(id, body);
+    res.setFlash({
+      type: "success",
+      message: "Cập nhật người dùng thành công",
+    });
     res.redirect(`/admin/users/${id}/edit`);
   } catch (error) {
     const user = await usersService.getOne(req.params.id);
@@ -67,5 +70,9 @@ exports.update = async (req, res) => {
 exports.forceDelete = async (req, res) => {
   const { id } = req.params;
   await usersService.forceDelete(id);
+  res.setFlash({
+    type: "success",
+    message: "xóa người dùng thành công",
+  });
   redirect("/admin/users");
 };

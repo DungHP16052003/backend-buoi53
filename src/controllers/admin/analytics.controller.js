@@ -3,7 +3,6 @@ const usersService = require("@/services/users.service");
 exports.analytic = async (req, res) => {
   try {
     const item = await usersService.getAll();
-    console.log(item);
 
     res.render("admin/analytics/index", {
       Analytics: item,

@@ -1,6 +1,13 @@
+const path = require("path");
+const transporter = require("@/configs/mailer");
+
 const usersService = require("@/services/users.service");
+const loadEmail = require("@/utils/loadEmail");
 const response = require("@/utils/response");
+const queue = require("@/utils/queue");
 exports.getList = async (req, res) => {
+  const userId = 25;
+  queue.dispatch("sendVerifyEmailJob", { userId });
   const users = await usersService.getAll();
   response.success(res, 200, users);
 };

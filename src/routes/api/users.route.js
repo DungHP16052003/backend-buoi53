@@ -1,6 +1,5 @@
 const express = require("express");
-const userController = require("@/controllers/users.controller");
-const userModel = require("@/models/user.model");
+const userController = require("@/controllers/api/users.controller");
 const addResourceLoaders = require("@/utils/addResourceLoaders");
 const router = express.Router();
 

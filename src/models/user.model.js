@@ -1,5 +1,6 @@
 const db = require("@/configs/db");
 const { buildInsertQuery, buildUpdateQuery } = require("@/utils/queryBuilder");
+const { ne } = require("@faker-js/faker");
 
 exports.findAll = async () => {
   const [users] = await db.query(
@@ -20,6 +21,27 @@ exports.findByEmailAnhPassword = async (email, password) => {
     [email, password]
   );
   return users[0];
+};
+exports.findCountNewUser = async () => {
+  const date = new Date();
+  date.setDate(-1);
+  const currentDate = `${date.getFullYear()} - ${
+    date.getMonth() + 1
+  } - ${date.getDate()}`;
+  const startTime = `${currentDate} 00:00:00`;
+  const endTime = `${currentDate} 23:59:59`;
+  console.log(startTime, endTime);
+
+  const [[{ count }]] = await db.query(
+    `select count(*) as count from users where created_at between ? and ?`,
+    [startTime, endTime]
+  );
+  return count;
+};
+
+exports.count = async () => {
+  const [[{ total }]] = await db.query(`select count(*) as total from users`);
+  return total;
 };
 
 exports.create = async (data) => {

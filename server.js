@@ -6,7 +6,7 @@ const cors = require("cors");
 const notHandleFound = require("@/middlewares.js/notHandleFound");
 const errorHandler = require("@/middlewares.js/errorHandle");
 const adminRouter = require("@/routes/admin");
-const router = require("@/routes");
+const router = require("@/routes/api");
 const cookieParser = require("cookie-parser");
 const handleSessions = require("@/middlewares.js/admin/handleSession");
 const shareLocals = require("@/middlewares.js/admin/shareLocals");
@@ -24,9 +24,16 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
 app.set("layout", "admin/layouts/default");
-// app.set("layout", "admin/layouts/auth");
+app.set("layout", "admin/layouts/auth");
 
-app.use("/admin", handleSessions, shareLocals, checkAuth, adminRouter);
+app.use(
+  "/admin",
+  handleSessions,
+  shareLocals,
+
+  checkAuth,
+  adminRouter
+);
 app.use("/api/v1", router);
 
 /** Bắt lỗi 404 và lỗi hệ thống */

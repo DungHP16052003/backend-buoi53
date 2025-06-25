@@ -1,8 +1,8 @@
 const express = require("express");
-const authRouter = require("./auth.route");
-const postsRouter = require("./posts.route");
-const categoryRouter = require("./api/category.route");
-const todosRouter = require("./todos.route");
+const authRouter = require("../auth.route");
+const postsRouter = require("../posts.route");
+const categoryRouter = require("./category.route");
+const todosRouter = require("../todos.route");
 const usersRouter = require("./users.route");
 const router = express.Router();
 

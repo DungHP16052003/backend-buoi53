@@ -13,8 +13,6 @@ const handlerValidatorErrors = (req, res, next) => {
       return errors;
     }, {});
 
-  console.log("Hello", errors);
-
   res.render(res.view, {
     errors,
     old: req.body,

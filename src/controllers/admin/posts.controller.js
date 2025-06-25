@@ -2,9 +2,7 @@ const postsService = require("@/services/posts.service");
 
 exports.posts = async (req, res) => {
   try {
-    console.log("hello");
     const item = await postsService.getAll();
-    console.log(item);
 
     res.render("admin/posts/index", {
       title: "posts list",

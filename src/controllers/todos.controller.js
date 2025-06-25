@@ -31,7 +31,6 @@ const readDb = async (resource) => {
 const router = express.Router();
 const getList = async (req, res) => {
   const todos = await readDb(RESOURCE);
-  // console.log(todos);
 
   res.json({
     status: "success",
